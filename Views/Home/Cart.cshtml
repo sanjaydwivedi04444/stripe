@@ -1,0 +1,51 @@
+﻿@model IEnumerable<StripePaymentGateway.Models.Products>
+@{
+    ViewData["Title"] = "Cart";
+    decimal amount = 0;
+}
+
+<h1>Cart</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+                    amount = amount + item.Price;
+                    <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+          
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+               
+                    </td>
+                    <td>
+                
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col" style="float:right">
+    <form method="post" action="/Home/Checkout">
+        <!-- Form fields -->
+        <div>
+            <label for="name" style="font-color:green">Amount:@amount</label>
+            <input type="hidden" id="amount" name="amount" value="@amount" />
+        </div>
+        <!-- Submit button -->
+        <button type="submit">Checkout</button>
+    </form>
+    </div>
+</div>
